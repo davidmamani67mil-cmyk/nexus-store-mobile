@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexus Mobile Store | Smartphones y Tecnologia</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --nexus-dark: #0b1120;
+      --nexus-navy: #1e293b;
+      --nexus-primary: #4f46e5;
+      --nexus-accent: #06b6d4;
+    }
+
+    body {
+      background-color: #f1f5f9;
+      color: #0f172a;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .navbar-nexus {
+      background: rgba(11, 17, 32, 0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .brand-badge {
+      width: 38px;
+      height: 38px;
+      background: linear-gradient(135deg, var(--nexus-primary), var(--nexus-accent));
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(79, 70, 229, 0.45);
+    }
+
+    .hero-nexus {
+      background: radial-gradient(circle at top right, #312e81 0%, #0f172a 55%, #090d16 100%);
+      border-radius: 1.25rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 35px -12px rgba(15, 23, 42, 0.35);
+    }
+
+    .hero-nexus::after {
+      content: "";
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.25), transparent 70%);
+      top: -80px;
+      right: -60px;
+      pointer-events: none;
+    }
+
+    .text-gradient {
+      background: linear-gradient(90deg, #38bdf8, #818cf8, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .filter-pill {
+      border-radius: 50rem;
+      font-weight: 600;
+      padding: 0.45rem 1.1rem;
+      transition: all 0.2s ease;
+    }
+
+    .product-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 1rem;
+      overflow: hidden;
+      background: #ffffff;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 30px -10px rgba(15, 23, 42, 0.14);
+      border-color: #cbd5e1;
+    }
+
+    .card-img-box {
+      height: 220px;
+      background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem;
+    }
+
+    .card-img-box img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+    }
+
+    .product-card:hover .card-img-box img {
+      transform: scale(1.05);
+    }
+
+    .spec-tag {
+      background-color: #f1f5f9;
+      color: #334155;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.6rem;
+      border-radius: 0.4rem;
+    }
+
+    .btn-nexus {
+      background: linear-gradient(135deg, #4f46e5, #2563eb);
+      border: none;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .btn-nexus:hover:not(:disabled) {
+      background: linear-gradient(135deg, #4338ca, #1d4ed8);
+      color: #fff;
+    }
+
+    .stat-box {
+      border-radius: 1rem;
+      border: none;
+      box-shadow: 0 4px 15px rgba(15, 23, 42, 0.05);
+    }
+
+    .table-thumb {
+      width: 46px;
+      height: 46px;
+      object-fit: contain;
+      background: #f8fafc;
+      border-radius: 0.5rem;
+      padding: 3px;
+      border: 1px solid #e2e8f0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-nexus sticky-top py-3">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2 fw-bold fs-4" href="#" id="nav-brand">
+        <span class="brand-badge"><i class="bi bi-phone-fill"></i></span>
+        <span>Nexus<span class="text-info">Mobile</span></span>
+      </a>
+
+      <div class="d-flex align-items-center gap-2">
+        <button type="button" class="btn btn-primary btn-sm px-3 fw-semibold" id="btn-view-store">
+          <i class="bi bi-shop me-1"></i> Tienda
+        </button>
+
+        <button type="button" class="btn btn-outline-light btn-sm px-3 position-relative fw-semibold" id="btn-open-cart">
+          <i class="bi bi-cart3 me-1"></i> Carrito
+          <span class="badge rounded-pill bg-info text-dark ms-1" id="cart-count">0</span>
+        </button>
+
+        <button type="button" class="btn btn-outline-warning btn-sm px-3 fw-semibold" id="btn-view-admin">
+          <i class="bi bi-shield-lock me-1"></i> <span id="admin-nav-label">Panel Admin</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="container my-4 flex-grow-1">
+
+    <!-- VISTA TIENDA -->
+    <section id="store-view">
+      <!-- HERO BANNER -->
+      <div class="hero-nexus p-4 p-md-5 mb-4 text-white">
+        <div class="row align-items-center">
+          <div class="col-lg-8">
+            <span class="badge rounded-pill bg-info text-dark fw-bold px-3 py-2 mb-3">
+              <i class="bi bi-lightning-charge-fill me-1"></i> Catalogo Oficial 2026
+            </span>
+            <h1 class="display-5 fw-bold mb-3">
+              Tecnologia movil de <span class="text-gradient">ultima generacion</span>
+            </h1>
+            <p class="lead text-light opacity-75 mb-0">
+              Descubre smartphones insignia, equipos gamer y plegables con disponibilidad verificada en tiempo real.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- BUSCADOR Y FILTROS -->
+      <div class="card border-0 shadow-sm rounded-4 p-3 mb-4">
+        <div class="row g-3 align-items-center">
+          <div class="col-md-5 col-lg-4">
+            <div class="input-group">
+              <span class="input-group-text bg-light border-end-0"><i class="bi bi-search text-muted"></i></span>
+              <input type="search" id="search-input" class="form-control bg-light border-start-0" placeholder="Buscar marca, modelo o equipo..." autocomplete="off">
+            </div>
+          </div>
+          <div class="col-md-7 col-lg-8">
+            <div class="d-flex flex-wrap gap-2 justify-content-md-end" id="category-filters">
+              <button type="button" class="btn btn-primary filter-pill" data-category="all">Todos</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ESTADO DE CARGA / ERROR / VACIO -->
+      <div id="status-container" class="d-none"></div>
+
+      <!-- GRID DE PRODUCTOS -->
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4" id="products-grid"></div>
+    </section>
+
+    <!-- VISTA PANEL ADMINISTRATIVO -->
+    <section id="admin-view" class="d-none">
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+        <div>
+          <h2 class="fw-bold mb-1"><i class="bi bi-speedometer2 text-primary me-2"></i>Panel de Administracion</h2>
+          <p class="text-muted mb-0">Gestion CRUD de inventario y categorias sincronizada con MockAPI.io</p>
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+          <button type="button" class="btn btn-outline-secondary fw-semibold" id="btn-manage-categories">
+            <i class="bi bi-tags me-1"></i> Categorias
+          </button>
+          <button type="button" class="btn btn-nexus px-3" id="btn-new-product">
+            <i class="bi bi-plus-circle me-1"></i> Nuevo Celular
+          </button>
+          <button type="button" class="btn btn-outline-danger fw-semibold" id="btn-logout">
+            <i class="bi bi-box-arrow-right me-1"></i> Salir
+          </button>
+        </div>
+      </div>
+
+      <!-- METRICAS -->
+      <div class="row g-3 mb-4">
+        <div class="col-6 col-md-3">
+          <div class="card stat-box p-3 border-start border-primary border-4">
+            <span class="text-muted small fw-semibold">Modelos Registrados</span>
+            <h3 class="fw-bold mb-0 mt-1" id="stat-total-products">0</h3>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="card stat-box p-3 border-start border-success border-4">
+            <span class="text-muted small fw-semibold">Unidades en Stock</span>
+            <h3 class="fw-bold mb-0 mt-1 text-success" id="stat-total-stock">0</h3>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="card stat-box p-3 border-start border-danger border-4">
+            <span class="text-muted small fw-semibold">Equipos Agotados</span>
+            <h3 class="fw-bold mb-0 mt-1 text-danger" id="stat-out-stock">0</h3>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="card stat-box p-3 border-start border-info border-4">
+            <span class="text-muted small fw-semibold">Categorias Activas</span>
+            <h3 class="fw-bold mb-0 mt-1" id="stat-total-categories">0</h3>
+          </div>
+        </div>
+      </div>
+
+      <!-- TABLA DE INVENTARIO -->
+      <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+              <tr>
+                <th class="ps-4">Celular</th>
+                <th>Categoria</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th class="text-end pe-4">Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="admin-products-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL DETALLES DE PRODUCTO -->
+  <div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content border-0 rounded-4 shadow-lg">
+        <div class="modal-header border-bottom-0 pb-0">
+          <span class="badge bg-primary-subtle text-primary fw-bold" id="modal-detail-category">Categoria</span>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body p-4" id="product-modal-body"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL CARRITO DE COMPRAS -->
+  <div class="modal fade" id="cartModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 rounded-4 shadow-lg">
+        <div class="modal-header bg-dark text-white rounded-top-4">
+          <h5 class="modal-title fw-bold"><i class="bi bi-cart-check me-2 text-info"></i>Carrito de Compras</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body p-4">
+          <div id="cart-items-container" class="d-flex flex-column gap-3"></div>
+        </div>
+        <div class="modal-footer bg-light rounded-bottom-4 d-block">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <span class="fs-5 text-muted">Total a pagar:</span>
+            <span class="fs-4 fw-bold text-primary" id="cart-total-amount">$0.00</span>
+          </div>
+          <button type="button" class="btn btn-nexus w-100 py-2 fs-6" id="btn-checkout">
+            <i class="bi bi-bag-check-fill me-1"></i> Confirmar Compra
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL LOGIN ADMIN -->
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+      <div class="modal-content border-0 rounded-4 shadow-lg">
+        <div class="modal-header bg-dark text-white rounded-top-4">
+          <h5 class="modal-title fw-bold"><i class="bi bi-shield-lock-fill me-2 text-warning"></i>Acceso Admin</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <form id="login-form" class="modal-body p-4">
+          <div class="mb-3">
+            <label for="admin-username" class="form-label fw-semibold small">Usuario</label>
+            <input type="text" id="admin-username" class="form-control" required placeholder="admin">
+          </div>
+          <div class="mb-3">
+            <label for="admin-password" class="form-label fw-semibold small">Contrasena</label>
+            <input type="password" id="admin-password" class="form-control" required placeholder="********">
+          </div>
+          <div id="login-error" class="alert alert-danger py-2 small d-none">
+            Usuario o contrasena incorrectos.
+          </div>
+          <button type="submit" class="btn btn-nexus w-100 py-2">Ingresar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL CREAR / EDITAR PRODUCTO -->
+  <div class="modal fade" id="productFormModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content border-0 rounded-4 shadow-lg">
+        <div class="modal-header bg-dark text-white rounded-top-4">
+          <h5 class="modal-title fw-bold" id="product-form-title">Nuevo Celular</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <form id="product-form" class="modal-body p-4">
+          <input type="hidden" id="prod-id">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label fw-semibold small">Nombre Comercial *</label>
+              <input type="text" id="prod-nombre" class="form-control" required placeholder="Ej. Galaxy S25 Ultra">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold small">Marca *</label>
+              <input type="text" id="prod-marca" class="form-control" required placeholder="Ej. Samsung">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold small">Modelo *</label>
+              <input type="text" id="prod-modelo" class="form-control" required placeholder="Ej. SM-S938B">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold small">Categoria *</label>
+              <select id="prod-categoria" class="form-select" required></select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold small">Precio (USD) *</label>
+              <input type="number" id="prod-precio" class="form-control" step="0.01" min="0" required placeholder="999.99">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold small">Stock Disponible *</label>
+              <input type="number" id="prod-stock" class="form-control" step="1" min="0" required placeholder="15">
+            </div>
+            <div class="col-12">
+              <label class="form-label fw-semibold small">URL de Imagen</label>
+              <input type="url" id="prod-imagen" class="form-control" placeholder="https://ejemplo.com/imagen.jpg">
+            </div>
+            <div class="col-12">
+              <label class="form-label fw-semibold small">Descripcion *</label>
+              <textarea id="prod-descripcion" class="form-control" rows="2" required placeholder="Descripcion general del dispositivo..."></textarea>
+            </div>
+
+            <div class="col-12 pt-2">
+              <h6 class="fw-bold text-primary border-bottom pb-2 mb-0">Especificaciones Tecnicas</h6>
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label fw-semibold small">Almacenamiento *</label>
+              <input type="text" id="spec-almacenamiento" class="form-control" required placeholder="256 GB">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label fw-semibold small">Memoria RAM *</label>
+              <input type="text" id="spec-ram" class="form-control" required placeholder="12 GB">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label fw-semibold small">Procesador *</label>
+              <input type="text" id="spec-procesador" class="form-control" required placeholder="Snapdragon 8 Elite">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label fw-semibold small">Pantalla *</label>
+              <input type="text" id="spec-pantalla" class="form-control" required placeholder="6.8 pulgadas AMOLED">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label fw-semibold small">Camara *</label>
+              <input type="text" id="spec-camara" class="form-control" required placeholder="200 MP + 50 MP">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label fw-semibold small">Bateria *</label>
+              <input type="text" id="spec-bateria" class="form-control" required placeholder="5000 mAh">
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end gap-2 mt-4 pt-3 border-top">
+            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-nexus px-4" id="btn-save-product">Guardar Celular</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL GESTION DE CATEGORIAS -->
+  <div class="modal fade" id="categoriesModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 rounded-4 shadow-lg">
+        <div class="modal-header bg-dark text-white rounded-top-4">
+          <h5 class="modal-title fw-bold"><i class="bi bi-tags-fill me-2 text-info"></i>Gestion de Categorias</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body p-4">
+          <form id="category-form" class="row g-2 mb-3">
+            <div class="col-sm-5">
+              <input type="text" id="cat-nombre" class="form-control" required placeholder="Nombre">
+            </div>
+            <div class="col-sm-5">
+              <input type="text" id="cat-descripcion" class="form-control" placeholder="Descripcion">
+            </div>
+            <div class="col-sm-2 d-grid">
+              <button type="submit" class="btn btn-nexus"><i class="bi bi-plus-lg"></i></button>
+            </div>
+          </form>
+          <ul class="list-group" id="categories-admin-list"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTENEDOR DE NOTIFICACIONES TOAST -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toast-container" style="z-index: 1090;"></div>
+
+  <!-- FOOTER -->
+  <footer class="bg-dark text-light py-4 mt-auto">
+    <div class="container text-center small opacity-75">
+      Nexus Mobile Store &copy; 2026 - Tienda Oficial de Tecnologia Movil
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    /* ==========================================================================
+       CONFIGURACION DE MOCKAPI.IO Y CREDENCIALES ADMIN
+       ========================================================================== */
+    const API_BASE_URL = "https://6afef3383a0e70bc8d544a52.mockapi.io/api/v1";
+    const ENDPOINTS = {
+      productos: `${API_BASE_URL}/productos`,
+      categorias: `${API_BASE_URL}/categorias`
+    };
+
+    const ADMIN_USER = "admin";
+    const ADMIN_PASS = "nexus2026";
+    const SESSION_KEY = "nexus_admin_authenticated";
+    const FALLBACK_IMAGE = "https://placehold.co/400x400/e2e8f0/1e293b?text=Smartphone";
+
+    /* ==========================================================================
+       ESTADO GLOBAL E INSTANCIAS DE MODALES BOOTSTRAP
+       ========================================================================== */
+    const state = {
+      productos: [],
+      categorias: [],
+      cart: [],
+      selectedCategory: "all",
+      searchQuery: "",
+      isAdmin: sessionStorage.getItem(SESSION_KEY) === "true"
+    };
+
+    const modals = {};
+
+    document.addEventListener("DOMContentLoaded", () => {
+      modals.product = new bootstrap.Modal(document.getElementById("productModal"));
+      modals.cart = new bootstrap.Modal(document.getElementById("cartModal"));
+      modals.login = new bootstrap.Modal(document.getElementById("loginModal"));
+      modals.productForm = new bootstrap.Modal(document.getElementById("productFormModal"));
+      modals.categories = new bootstrap.Modal(document.getElementById("categoriesModal"));
+
+      bindEvents();
+      updateAdminNavState();
+      loadInitialData();
+    });
+
+    function bindEvents() {
+      document.getElementById("nav-brand").addEventListener("click", (e) => {
+        e.preventDefault();
+        switchView("store");
+      });
+
+      document.getElementById("btn-view-store").addEventListener("click", () => {
+        switchView("store");
+      });
+
+      document.getElementById("btn-view-admin").addEventListener("click", () => {
+        if (state.isAdmin) {
+          switchView("admin");
+        } else {
+          document.getElementById("login-error").classList.add("d-none");
+          document.getElementById("login-form").reset();
+          modals.login.show();
+        }
+      });
+
+      document.getElementById("btn-open-cart").addEventListener("click", () => {
+        renderCartModal();
+        modals.cart.show();
+      });
+
+      document.getElementById("search-input").addEventListener("input", (e) => {
+        state.searchQuery = e.target.value.trim().toLowerCase();
+        renderProductsGrid();
+      });
+
+      document.getElementById("login-form").addEventListener("submit", handleAdminLogin);
+      document.getElementById("btn-logout").addEventListener("click", handleAdminLogout);
+
+      document.getElementById("btn-new-product").addEventListener("click", () => {
+        if (!requireAdminAuth()) return;
+        openProductFormModal();
+      });
+
+      document.getElementById("product-form").addEventListener("submit", handleSaveProduct);
+
+      document.getElementById("btn-manage-categories").addEventListener("click", () => {
+        if (!requireAdminAuth()) return;
+        renderCategoriesAdminList();
+        modals.categories.show();
+      });
+
+      document.getElementById("category-form").addEventListener("submit", handleCreateCategory);
+      document.getElementById("btn-checkout").addEventListener("click", handleCartCheckout);
+    }
+
+    /* ==========================================================================
+       CARGA DE DATOS DESDE MOCKAPI.IO
+       ========================================================================== */
+    async function loadInitialData() {
+      setLoadingState(true);
+      try {
+        const [resCategorias, resProductos] = await Promise.all([
+          fetch(ENDPOINTS.categorias),
+          fetch(ENDPOINTS.productos)
+        ]);
+
+        if (!resCategorias.ok || !resProductos.ok) {
+          throw new Error("No se pudo conectar con los endpoints de MockAPI.io");
+        }
+
+        const categoriasData = await resCategorias.json();
+        const productosData = await resProductos.json();
+
+        state.categorias = Array.isArray(categoriasData) ? categoriasData : [];
+        state.productos = Array.isArray(productosData) ? productosData : [];
+
+        setLoadingState(false);
+        renderCategoryFilters();
+        populateCategorySelect();
+        renderProductsGrid();
+        if (state.isAdmin) renderAdminPanel();
+      } catch (error) {
+        setErrorState(error.message);
+      }
+    }
+
+    function setLoadingState(loading) {
+      const statusEl = document.getElementById("status-container");
+      const gridEl = document.getElementById("products-grid");
+
+      if (loading) {
+        gridEl.innerHTML = "";
+        statusEl.classList.remove("d-none");
+        statusEl.innerHTML = `
+          <div class="text-center py-5 bg-white rounded-4 shadow-sm">
+            <div class="spinner-border text-primary mb-3" role="status"></div>
+            <p class="text-muted fw-semibold mb-0">Cargando catalogo de celulares...</p>
+          </div>
+        `;
+      } else {
+        statusEl.classList.add("d-none");
+      }
+    }
+
+    function setErrorState(message) {
+      const statusEl = document.getElementById("status-container");
+      statusEl.classList.remove("d-none");
+      statusEl.innerHTML = `
+        <div class="alert alert-danger rounded-4 p-4 text-center shadow-sm">
+          <h4 class="fw-bold"><i class="bi bi-exclamation-triangle-fill me-2"></i>Error de conexion</h4>
+          <p class="mb-3">${escapeHtml(message)}</p>
+          <button type="button" class="btn btn-danger px-4" id="btn-retry-fetch">Reintentar</button>
+        </div>
+      `;
+      document.getElementById("btn-retry-fetch").addEventListener("click", loadInitialData);
+    }
+
+    /* ==========================================================================
+       TIENDA: FILTROS Y TARJETAS CON BOTON DIRECTO AL CARRITO
+       ========================================================================== */
+    function renderCategoryFilters() {
+      const container = document.getElementById("category-filters");
+      const allActive = state.selectedCategory === "all";
+      container.innerHTML = `
+        <button type="button" class="btn ${allActive ? "btn-primary" : "btn-outline-secondary"} filter-pill" data-category="all">
+          Todos
+        </button>
+      `;
+
+      state.categorias.forEach((cat) => {
+        const isActive = String(state.selectedCategory) === String(cat.id);
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = `btn ${isActive ? "btn-primary" : "btn-outline-secondary"} filter-pill`;
+        btn.dataset.category = cat.id;
+        btn.textContent = cat.nombre;
+        container.appendChild(btn);
+      });
+
+      container.querySelectorAll(".filter-pill").forEach((chip) => {
+        chip.addEventListener("click", () => {
+          state.selectedCategory = chip.dataset.category;
+          renderCategoryFilters();
+          renderProductsGrid();
+        });
+      });
+    }
+
+    function renderProductsGrid() {
+      const grid = document.getElementById("products-grid");
+      const statusEl = document.getElementById("status-container");
+
+      const filtered = state.productos.filter((prod) => {
+        const matchesCat =
+          state.selectedCategory === "all" ||
+          String(prod.categoriaId) === String(state.selectedCategory);
+        const searchTarget = `${prod.nombre} ${prod.marca} ${prod.modelo}`.toLowerCase();
+        return matchesCat && searchTarget.includes(state.searchQuery);
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = "";
+        statusEl.classList.remove("d-none");
+        statusEl.innerHTML = `
+          <div class="text-center py-5 bg-white rounded-4 shadow-sm">
+            <i class="bi bi-search fs-1 text-muted"></i>
+            <h5 class="fw-bold mt-2">Sin resultados</h5>
+            <p class="text-muted mb-0">No encontramos celulares que coincidan con tu filtro actual.</p>
+          </div>
+        `;
+        return;
+      }
+
+      statusEl.classList.add("d-none");
+      grid.innerHTML = filtered
+        .map((prod) => {
+          const stock = Number(prod.stock) || 0;
+          const isOutOfStock = stock <= 0;
+          const categoryName = getCategoryName(prod.categoriaId);
+          const specs = prod.especificaciones || {};
+
+          return `
+            <div class="col">
+              <article class="product-card h-100 d-flex flex-column">
+                <div class="card-img-box">
+                  <span class="position-absolute top-0 end-0 m-3 badge rounded-pill ${getStockBadgeClass(stock)}">
+                    ${getStockBadgeText(stock)}
+                  </span>
+                  <img src="${escapeHtml(prod.imagen || FALLBACK_IMAGE)}" alt="${escapeHtml(prod.nombre)}" onerror="this.src='${FALLBACK_IMAGE}'">
+                </div>
+
+                <div class="p-3 d-flex flex-column flex-grow-1">
+                  <div class="d-flex justify-content-between align-items-center mb-1">
+                    <span class="text-primary fw-bold text-uppercase" style="font-size: 0.72rem; letter-spacing: 0.05em;">
+                      ${escapeHtml(categoryName)}
+                    </span>
+                    <span class="text-muted small">${escapeHtml(prod.marca)}</span>
+                  </div>
+
+                  <h5 class="fw-bold mb-1">${escapeHtml(prod.nombre)}</h5>
+                  <p class="text-muted small mb-2">Modelo: ${escapeHtml(prod.modelo)}</p>
+
+                  <div class="d-flex flex-wrap gap-1 mb-3">
+                    ${specs.almacenamiento ? `<span class="spec-tag">${escapeHtml(specs.almacenamiento)}</span>` : ""}
+                    ${specs.ram ? `<span class="spec-tag">${escapeHtml(specs.ram)} RAM</span>` : ""}
+                    ${specs.camara ? `<span class="spec-tag">${escapeHtml(specs.camara.split("+")[0].trim())}</span>` : ""}
+                  </div>
+
+                  <div class="mt-auto pt-3 border-top">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="fs-4 fw-bold text-dark">${formatCurrency(prod.precio)}</span>
+                    </div>
+
+                    <div class="d-grid gap-2 d-sm-flex">
+                      <button type="button" class="btn btn-outline-primary btn-sm flex-fill fw-semibold" data-detail-id="${prod.id}">
+                        <i class="bi bi-eye me-1"></i> Ver detalles
+                      </button>
+                      <button type="button" class="btn btn-nexus btn-sm flex-fill" data-quick-add="${prod.id}" ${isOutOfStock ? "disabled" : ""}>
+                        <i class="bi bi-cart-plus me-1"></i> ${isOutOfStock ? "Agotado" : "Agregar"}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+          `;
+        })
+        .join("");
+
+      grid.querySelectorAll("[data-detail-id]").forEach((btn) => {
+        btn.addEventListener("click", () => openProductDetailModal(btn.dataset.detailId));
+      });
+
+      grid.querySelectorAll("[data-quick-add]").forEach((btn) => {
+        btn.addEventListener("click", () => addToCart(btn.dataset.quickAdd, 1));
+      });
+    }
+
+    function getStockBadgeClass(stock) {
+      if (stock <= 0) return "bg-danger text-white";
+      if (stock <= 5) return "bg-warning text-dark";
+      return "bg-success text-white";
+    }
+
+    function getStockBadgeText(stock) {
+      if (stock <= 0) return "Agotado";
+      if (stock <= 5) return `Ultimas ${stock} uds.`;
+      return `Stock: ${stock}`;
+    }
+
+    /* ==========================================================================
+       MODAL DETALLES, COMPRA DIRECTA Y CARRITO
+       ========================================================================== */
+    function openProductDetailModal(productId) {
+      const prod = state.productos.find((p) => String(p.id) === String(productId));
+      if (!prod) return;
+
+      const stock = Number(prod.stock) || 0;
+      const specs = prod.especificaciones || {};
+      document.getElementById("modal-detail-category").textContent = getCategoryName(prod.categoriaId);
+
+      const body = document.getElementById("product-modal-body");
+      body.innerHTML = `
+        <div class="row g-4 align-items-center">
+          <div class="col-md-5">
+            <div class="bg-light rounded-4 p-4 text-center border">
+              <img src="${escapeHtml(prod.imagen || FALLBACK_IMAGE)}" alt="${escapeHtml(prod.nombre)}" class="img-fluid" style="max-height: 270px; object-fit: contain;" onerror="this.src='${FALLBACK_IMAGE}'">
+            </div>
+          </div>
+
+          <div class="col-md-7">
+            <h3 class="fw-bold mb-1">${escapeHtml(prod.nombre)}</h3>
+            <p class="text-muted mb-2">Marca: <strong>${escapeHtml(prod.marca)}</strong> &bull; Modelo: <strong>${escapeHtml(prod.modelo)}</strong></p>
+
+            <div class="d-flex align-items-center gap-3 my-3">
+              <span class="fs-2 fw-bold text-primary">${formatCurrency(prod.precio)}</span>
+              <span class="badge rounded-pill px-3 py-2 ${getStockBadgeClass(stock)}">${getStockBadgeText(stock)}</span>
+            </div>
+
+            <p class="text-secondary small mb-3">${escapeHtml(prod.descripcion || "Sin descripcion.")}</p>
+
+            <div class="row g-2 mb-4">
+              <div class="col-6">
+                <div class="p-2 bg-light rounded-3 border">
+                  <small class="text-muted d-block">Almacenamiento</small>
+                  <strong class="small">${escapeHtml(specs.almacenamiento || "N/A")}</strong>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="p-2 bg-light rounded-3 border">
+                  <small class="text-muted d-block">Memoria RAM</small>
+                  <strong class="small">${escapeHtml(specs.ram || "N/A")}</strong>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="p-2 bg-light rounded-3 border">
+                  <small class="text-muted d-block">Pantalla</small>
+                  <strong class="small">${escapeHtml(specs.pantalla || "N/A")}</strong>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="p-2 bg-light rounded-3 border">
+                  <small class="text-muted d-block">Camara</small>
+                  <strong class="small">${escapeHtml(specs.camara || "N/A")}</strong>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="p-2 bg-light rounded-3 border">
+                  <small class="text-muted d-block">Bateria</small>
+                  <strong class="small">${escapeHtml(specs.bateria || "N/A")}</strong>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="p-2 bg-light rounded-3 border">
+                  <small class="text-muted d-block">Procesador</small>
+                  <strong class="small">${escapeHtml(specs.procesador || "N/A")}</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex flex-wrap align-items-center gap-2 pt-3 border-top">
+              <div style="width: 85px;">
+                <input type="number" id="detail-qty" class="form-control text-center fw-bold" value="1" min="1" max="${stock}" ${stock <= 0 ? "disabled" : ""}>
+              </div>
+              <button type="button" class="btn btn-outline-primary fw-semibold" id="btn-modal-add-cart" ${stock <= 0 ? "disabled" : ""}>
+                <i class="bi bi-cart-plus me-1"></i> Agregar al carrito
+              </button>
+              <button type="button" class="btn btn-nexus px-3" id="btn-modal-buy-now" ${stock <= 0 ? "disabled" : ""}>
+                <i class="bi bi-lightning-fill me-1"></i> ${stock <= 0 ? "Sin stock" : "Comprar ahora"}
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      if (stock > 0) {
+        document.getElementById("btn-modal-add-cart").addEventListener("click", () => {
+          const qty = parseInt(document.getElementById("detail-qty").value, 10) || 1;
+          addToCart(prod.id, qty);
+        });
+
+        document.getElementById("btn-modal-buy-now").addEventListener("click", async () => {
+          const qty = parseInt(document.getElementById("detail-qty").value, 10) || 1;
+          await executeDirectPurchase(prod.id, qty);
+        });
+      }
+
+      modals.product.show();
+    }
+
+    function addToCart(productId, quantity) {
+      const prod = state.productos.find((p) => String(p.id) === String(productId));
+      if (!prod) return;
+
+      const availableStock = Number(prod.stock) || 0;
+      if (quantity <= 0 || availableStock <= 0) {
+        showToast("Producto sin stock disponible.", "danger");
+        return;
+      }
+
+      const existing = state.cart.find((item) => String(item.productId) === String(productId));
+      const inCart = existing ? existing.quantity : 0;
+
+      if (inCart + quantity > availableStock) {
+        showToast(`Solo quedan ${availableStock} unidades disponibles.`, "warning");
+        return;
+      }
+
+      if (existing) {
+        existing.quantity += quantity;
+      } else {
+        state.cart.push({ productId: prod.id, quantity });
+      }
+
+      updateCartCounter();
+      showToast(`${prod.nombre} agregado al carrito.`, "success");
+    }
+
+    function updateCartCounter() {
+      const total = state.cart.reduce((acc, item) => acc + item.quantity, 0);
+      document.getElementById("cart-count").textContent = total;
+    }
+
+    function renderCartModal() {
+      const container = document.getElementById("cart-items-container");
+      const totalEl = document.getElementById("cart-total-amount");
+      const checkoutBtn = document.getElementById("btn-checkout");
+
+      if (state.cart.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-4 text-muted">
+            <i class="bi bi-cart-x fs-1"></i>
+            <p class="mt-2 mb-0">Tu carrito esta vacio.</p>
+          </div>
+        `;
+        totalEl.textContent = formatCurrency(0);
+        checkoutBtn.disabled = true;
+        return;
+      }
+
+      let total = 0;
+      checkoutBtn.disabled = false;
+
+      container.innerHTML = state.cart
+        .map((item) => {
+          const prod = state.productos.find((p) => String(p.id) === String(item.productId));
+          if (!prod) return "";
+          const subtotal = Number(prod.precio) * item.quantity;
+          total += subtotal;
+
+          return `
+            <div class="d-flex justify-content-between align-items-center border-bottom pb-3">
+              <div>
+                <h6 class="fw-bold mb-0">${escapeHtml(prod.nombre)}</h6>
+                <small class="text-muted">${formatCurrency(prod.precio)} x ${item.quantity} = <strong class="text-dark">${formatCurrency(subtotal)}</strong></small>
+              </div>
+              <div class="btn-group btn-group-sm">
+                <button type="button" class="btn btn-outline-secondary" data-cart-dec="${prod.id}">-</button>
+                <span class="btn btn-light disabled fw-bold text-dark">${item.quantity}</span>
+                <button type="button" class="btn btn-outline-secondary" data-cart-inc="${prod.id}">+</button>
+                <button type="button" class="btn btn-outline-danger" data-cart-del="${prod.id}"><i class="bi bi-trash"></i></button>
+              </div>
+            </div>
+          `;
+        })
+        .join("");
+
+      totalEl.textContent = formatCurrency(total);
+
+      container.querySelectorAll("[data-cart-dec]").forEach((btn) => {
+        btn.addEventListener("click", () => changeCartQty(btn.dataset.cartDec, -1));
+      });
+      container.querySelectorAll("[data-cart-inc]").forEach((btn) => {
+        btn.addEventListener("click", () => changeCartQty(btn.dataset.cartInc, 1));
+      });
+      container.querySelectorAll("[data-cart-del]").forEach((btn) => {
+        btn.addEventListener("click", () => removeFromCart(btn.dataset.cartDel));
+      });
+    }
+
+    function changeCartQty(productId, delta) {
+      const item = state.cart.find((i) => String(i.productId) === String(productId));
+      const prod = state.productos.find((p) => String(p.id) === String(productId));
+      if (!item || !prod) return;
+
+      const newQty = item.quantity + delta;
+      if (newQty <= 0) {
+        removeFromCart(productId);
+        return;
+      }
+      if (newQty > Number(prod.stock)) {
+        showToast("Supera el stock disponible.", "warning");
+        return;
+      }
+      item.quantity = newQty;
+      updateCartCounter();
+      renderCartModal();
+    }
+
+    function removeFromCart(productId) {
+      state.cart = state.cart.filter((i) => String(i.productId) !== String(productId));
+      updateCartCounter();
+      renderCartModal();
+    }
+
+    async function executeDirectPurchase(productId, quantity) {
+      const prod = state.productos.find((p) => String(p.id) === String(productId));
+      if (!prod) return;
+
+      const currentStock = Number(prod.stock) || 0;
+      if (quantity <= 0 || quantity > currentStock) {
+        showToast("Stock insuficiente.", "danger");
+        return;
+      }
+
+      const buyBtn = document.getElementById("btn-modal-buy-now");
+      if (buyBtn) buyBtn.disabled = true;
+
+      try {
+        const newStock = currentStock - quantity;
+        await updateProductStockInApi(prod.id, newStock);
+        prod.stock = newStock;
+
+        modals.product.hide();
+        renderProductsGrid();
+        if (state.isAdmin) renderAdminPanel();
+
+        showToast(`Compra realizada por ${formatCurrency(Number(prod.precio) * quantity)}.`, "success");
+      } catch (error) {
+        showToast("Error al actualizar el stock en MockAPI.", "danger");
+        if (buyBtn) buyBtn.disabled = false;
+      }
+    }
+
+    async function handleCartCheckout() {
+      if (state.cart.length === 0) return;
+
+      const checkoutBtn = document.getElementById("btn-checkout");
+      checkoutBtn.disabled = true;
+      checkoutBtn.textContent = "Procesando compra...";
+
+      try {
+        for (const item of state.cart) {
+          const prod = state.productos.find((p) => String(p.id) === String(item.productId));
+          if (!prod || Number(prod.stock) < item.quantity) {
+            throw new Error(`Stock insuficiente para ${prod ? prod.nombre : "un equipo"}.`);
+          }
+        }
+
+        let grandTotal = 0;
+        for (const item of state.cart) {
+          const prod = state.productos.find((p) => String(p.id) === String(item.productId));
+          const newStock = Number(prod.stock) - item.quantity;
+          await updateProductStockInApi(prod.id, newStock);
+          prod.stock = newStock;
+          grandTotal += Number(prod.precio) * item.quantity;
+        }
+
+        state.cart = [];
+        updateCartCounter();
+        modals.cart.hide();
+        renderProductsGrid();
+        if (state.isAdmin) renderAdminPanel();
+
+        showToast(`Compra confirmada por ${formatCurrency(grandTotal)}. Stock actualizado.`, "success");
+      } catch (error) {
+        showToast(error.message || "Error al procesar la compra.", "danger");
+      } finally {
+        checkoutBtn.disabled = false;
+        checkoutBtn.innerHTML = `<i class="bi bi-bag-check-fill me-1"></i> Confirmar Compra`;
+      }
+    }
+
+    async function updateProductStockInApi(productId, newStock) {
+      const response = await fetch(`${ENDPOINTS.productos}/${productId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ stock: newStock })
+      });
+      if (!response.ok) throw new Error("Fallo en PUT de stock");
+      return response.json();
+    }
+
+    /* ==========================================================================
+       SEGURIDAD ADMIN Y CRUD COMPLETO
+       ========================================================================== */
+    function handleAdminLogin(e) {
+      e.preventDefault();
+      const user = document.getElementById("admin-username").value.trim();
+      const pass = document.getElementById("admin-password").value;
+
+      if (user === ADMIN_USER && pass === ADMIN_PASS) {
+        state.isAdmin = true;
+        sessionStorage.setItem(SESSION_KEY, "true");
+        document.getElementById("login-error").classList.add("d-none");
+        modals.login.hide();
+        updateAdminNavState();
+        switchView("admin");
+        showToast("Bienvenido al Panel Administrativo.", "success");
+      } else {
+        document.getElementById("login-error").classList.remove("d-none");
+      }
+    }
+
+    function handleAdminLogout() {
+      state.isAdmin = false;
+      sessionStorage.removeItem(SESSION_KEY);
+      updateAdminNavState();
+      switchView("store");
+      showToast("Sesion administrativa cerrada.", "info");
+    }
+
+    function requireAdminAuth() {
+      if (!state.isAdmin || sessionStorage.getItem(SESSION_KEY) !== "true") {
+        state.isAdmin = false;
+        updateAdminNavState();
+        switchView("store");
+        modals.login.show();
+        showToast("Inicia sesion como administrador.", "danger");
+        return false;
+      }
+      return true;
+    }
+
+    function updateAdminNavState() {
+      document.getElementById("admin-nav-label").textContent = state.isAdmin ? "Admin (Activo)" : "Panel Admin";
+    }
+
+    function switchView(viewName) {
+      const storeView = document.getElementById("store-view");
+      const adminView = document.getElementById("admin-view");
+
+      if (viewName === "admin") {
+        if (!requireAdminAuth()) return;
+        storeView.classList.add("d-none");
+        adminView.classList.remove("d-none");
+        renderAdminPanel();
+      } else {
+        adminView.classList.add("d-none");
+        storeView.classList.remove("d-none");
+        renderProductsGrid();
+      }
+    }
+
+    function renderAdminPanel() {
+      if (!requireAdminAuth()) return;
+
+      const totalStock = state.productos.reduce((acc, p) => acc + (Number(p.stock) || 0), 0);
+      const outStock = state.productos.filter((p) => (Number(p.stock) || 0) <= 0).length;
+
+      document.getElementById("stat-total-products").textContent = state.productos.length;
+      document.getElementById("stat-total-stock").textContent = totalStock;
+      document.getElementById("stat-out-stock").textContent = outStock;
+      document.getElementById("stat-total-categories").textContent = state.categorias.length;
+
+      const tbody = document.getElementById("admin-products-tbody");
+      if (state.productos.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" class="text-center py-4 text-muted">No hay productos registrados.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = state.productos
+        .map((prod) => {
+          const stock = Number(prod.stock) || 0;
+          return `
+            <tr>
+              <td class="ps-4">
+                <div class="d-flex align-items-center gap-3">
+                  <img src="${escapeHtml(prod.imagen || FALLBACK_IMAGE)}" alt="" class="table-thumb" onerror="this.src='${FALLBACK_IMAGE}'">
+                  <div>
+                    <div class="fw-bold">${escapeHtml(prod.nombre)}</div>
+                    <small class="text-muted">${escapeHtml(prod.marca)} &bull; ${escapeHtml(prod.modelo)}</small>
+                  </div>
+                </div>
+              </td>
+              <td><span class="badge bg-light text-dark border">${escapeHtml(getCategoryName(prod.categoriaId))}</span></td>
+              <td class="fw-bold">${formatCurrency(prod.precio)}</td>
+              <td><span class="badge rounded-pill ${getStockBadgeClass(stock)}">${stock} uds.</span></td>
+              <td class="text-end pe-4">
+                <button type="button" class="btn btn-outline-primary btn-sm me-1" data-edit-id="${prod.id}">
+                  <i class="bi bi-pencil-square"></i> Editar
+                </button>
+                <button type="button" class="btn btn-outline-danger btn-sm" data-delete-id="${prod.id}">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </td>
+            </tr>
+          `;
+        })
+        .join("");
+
+      tbody.querySelectorAll("[data-edit-id]").forEach((btn) => {
+        btn.addEventListener("click", () => openProductFormModal(btn.dataset.editId));
+      });
+
+      tbody.querySelectorAll("[data-delete-id]").forEach((btn) => {
+        btn.addEventListener("click", () => handleDeleteProduct(btn.dataset.deleteId));
+      });
+    }
+
+    function populateCategorySelect() {
+      const select = document.getElementById("prod-categoria");
+      select.innerHTML = state.categorias
+        .map((cat) => `<option value="${cat.id}">${escapeHtml(cat.nombre)}</option>`)
+        .join("");
+    }
+
+    function openProductFormModal(productId = null) {
+      if (!requireAdminAuth()) return;
+      populateCategorySelect();
+      document.getElementById("product-form").reset();
+
+      if (productId) {
+        const prod = state.productos.find((p) => String(p.id) === String(productId));
+        if (!prod) return;
+
+        document.getElementById("product-form-title").textContent = "Editar Celular";
+        document.getElementById("prod-id").value = prod.id;
+        document.getElementById("prod-nombre").value = prod.nombre || "";
+        document.getElementById("prod-marca").value = prod.marca || "";
+        document.getElementById("prod-modelo").value = prod.modelo || "";
+        document.getElementById("prod-categoria").value = prod.categoriaId || "";
+        document.getElementById("prod-precio").value = prod.precio ?? 0;
+        document.getElementById("prod-stock").value = prod.stock ?? 0;
+        document.getElementById("prod-imagen").value = prod.imagen || "";
+        document.getElementById("prod-descripcion").value = prod.descripcion || "";
+
+        const specs = prod.especificaciones || {};
+        document.getElementById("spec-almacenamiento").value = specs.almacenamiento || "";
+        document.getElementById("spec-ram").value = specs.ram || "";
+        document.getElementById("spec-pantalla").value = specs.pantalla || "";
+        document.getElementById("spec-camara").value = specs.camara || "";
+        document.getElementById("spec-bateria").value = specs.bateria || "";
+        document.getElementById("spec-procesador").value = specs.procesador || "";
+      } else {
+        document.getElementById("product-form-title").textContent = "Nuevo Celular";
+        document.getElementById("prod-id").value = "";
+      }
+
+      modals.productForm.show();
+    }
+
+    async function handleSaveProduct(e) {
+      e.preventDefault();
+      if (!requireAdminAuth()) return;
+
+      const id = document.getElementById("prod-id").value;
+      const precio = parseFloat(document.getElementById("prod-precio").value);
+      const stock = parseInt(document.getElementById("prod-stock").value, 10);
+      const rawImage = document.getElementById("prod-imagen").value.trim();
+
+      if (isNaN(precio) || precio < 0 || isNaN(stock) || stock < 0) {
+        showToast("Precio y stock deben ser numeros positivos.", "danger");
+        return;
+      }
+
+      const payload = {
+        nombre: document.getElementById("prod-nombre").value.trim(),
+        marca: document.getElementById("prod-marca").value.trim(),
+        modelo: document.getElementById("prod-modelo").value.trim(),
+        categoriaId: document.getElementById("prod-categoria").value,
+        precio,
+        stock,
+        imagen: isValidUrl(rawImage) ? rawImage : FALLBACK_IMAGE,
+        descripcion: document.getElementById("prod-descripcion").value.trim(),
+        especificaciones: {
+          almacenamiento: document.getElementById("spec-almacenamiento").value.trim(),
+          ram: document.getElementById("spec-ram").value.trim(),
+          pantalla: document.getElementById("spec-pantalla").value.trim(),
+          camara: document.getElementById("spec-camara").value.trim(),
+          bateria: document.getElementById("spec-bateria").value.trim(),
+          procesador: document.getElementById("spec-procesador").value.trim()
+        }
+      };
+
+      const saveBtn = document.getElementById("btn-save-product");
+      saveBtn.disabled = true;
+
+      try {
+        const isEdit = Boolean(id);
+        const response = await fetch(isEdit ? `${ENDPOINTS.productos}/${id}` : ENDPOINTS.productos, {
+          method: isEdit ? "PUT" : "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) throw new Error("Error al guardar en MockAPI.io");
+        const saved = await response.json();
+
+        if (isEdit) {
+          const idx = state.productos.findIndex((p) => String(p.id) === String(id));
+          if (idx !== -1) state.productos[idx] = saved;
+          showToast("Celular actualizado.", "success");
+        } else {
+          state.productos.push(saved);
+          showToast("Celular agregado al catalogo.", "success");
+        }
+
+        modals.productForm.hide();
+        renderAdminPanel();
+        renderProductsGrid();
+      } catch (error) {
+        showToast(error.message, "danger");
+      } finally {
+        saveBtn.disabled = false;
+      }
+    }
+
+    async function handleDeleteProduct(productId) {
+      if (!requireAdminAuth()) return;
+      const prod = state.productos.find((p) => String(p.id) === String(productId));
+      if (!prod) return;
+
+      if (!window.confirm(`Eliminar "${prod.nombre}" del catalogo?`)) return;
+
+      try {
+        const response = await fetch(`${ENDPOINTS.productos}/${productId}`, { method: "DELETE" });
+        if (!response.ok) throw new Error("Error al eliminar en MockAPI.io");
+
+        state.productos = state.productos.filter((p) => String(p.id) !== String(productId));
+        state.cart = state.cart.filter((c) => String(c.productId) !== String(productId));
+        updateCartCounter();
+        renderAdminPanel();
+        renderProductsGrid();
+        showToast("Producto eliminado.", "success");
+      } catch (error) {
+        showToast(error.message, "danger");
+      }
+    }
+
+    function renderCategoriesAdminList() {
+      const list = document.getElementById("categories-admin-list");
+      if (state.categorias.length === 0) {
+        list.innerHTML = `<li class="list-group-item text-muted">Sin categorias.</li>`;
+        return;
+      }
+
+      list.innerHTML = state.categorias
+        .map((cat) => `
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+              <strong>${escapeHtml(cat.nombre)}</strong>
+              ${cat.descripcion ? `<div class="small text-muted">${escapeHtml(cat.descripcion)}</div>` : ""}
+            </div>
+            <button type="button" class="btn btn-outline-danger btn-sm" data-del-cat="${cat.id}">
+              <i class="bi bi-trash"></i>
+            </button>
+          </li>
+        `)
+        .join("");
+
+      list.querySelectorAll("[data-del-cat]").forEach((btn) => {
+        btn.addEventListener("click", () => handleDeleteCategory(btn.dataset.delCat));
+      });
+    }
+
+    async function handleCreateCategory(e) {
+      e.preventDefault();
+      if (!requireAdminAuth()) return;
+
+      const nombre = document.getElementById("cat-nombre").value.trim();
+      const descripcion = document.getElementById("cat-descripcion").value.trim();
+      if (!nombre) return;
+
+      const slug = nombre.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+
+      try {
+        const response = await fetch(ENDPOINTS.categorias, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ nombre, slug, descripcion })
+        });
+        if (!response.ok) throw new Error("Error al crear categoria");
+
+        const created = await response.json();
+        state.categorias.push(created);
+        document.getElementById("category-form").reset();
+        renderCategoriesAdminList();
+        renderCategoryFilters();
+        populateCategorySelect();
+        renderAdminPanel();
+        showToast("Categoria agregada.", "success");
+      } catch (error) {
+        showToast(error.message, "danger");
+      }
+    }
+
+    async function handleDeleteCategory(catId) {
+      if (!requireAdminAuth()) return;
+      if (state.productos.some((p) => String(p.categoriaId) === String(catId))) {
+        showToast("Categoria en uso por productos activos.", "warning");
+        return;
+      }
+
+      try {
+        const response = await fetch(`${ENDPOINTS.categorias}/${catId}`, { method: "DELETE" });
+        if (!response.ok) throw new Error("Error al eliminar categoria");
+
+        state.categorias = state.categorias.filter((c) => String(c.id) !== String(catId));
+        renderCategoriesAdminList();
+        renderCategoryFilters();
+        populateCategorySelect();
+        renderAdminPanel();
+        showToast("Categoria eliminada.", "success");
+      } catch (error) {
+        showToast(error.message, "danger");
+      }
+    }
+
+    /* ==========================================================================
+       UTILIDADES
+       ========================================================================== */
+    function getCategoryName(categoryId) {
+      const found = state.categorias.find((c) => String(c.id) === String(categoryId));
+      return found ? found.nombre : "General";
+    }
+
+    function formatCurrency(value) {
+      return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(Number(value) || 0);
+    }
+
+    function isValidUrl(str) {
+      try {
+        const u = new URL(str);
+        return u.protocol === "http:" || u.protocol === "https:";
+      } catch (_) {
+        return false;
+      }
+    }
+
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return "";
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function showToast(message, variant = "primary") {
+      const container = document.getElementById("toast-container");
+      const toastEl = document.createElement("div");
+      toastEl.className = `toast align-items-center text-bg-${variant} border-0 show mb-2`;
+      toastEl.setAttribute("role", "alert");
+      toastEl.innerHTML = `
+        <div class="d-flex">
+          <div class="toast-body fw-semibold">${escapeHtml(message)}</div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+      `;
+      container.appendChild(toastEl);
+      setTimeout(() => toastEl.remove(), 3500);
+    }
+  </script>
+</body>
+</html>
